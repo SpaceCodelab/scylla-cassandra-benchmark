@@ -1,0 +1,21 @@
+# YCSB Workload C: 100% Read workload
+recordcount=10000000
+operationcount=5000000
+workload=site.ycsb.workloads.CoreWorkload
+
+readproportion=1.0
+updateproportion=0.0
+scanproportion=0.0
+insertproportion=0.0
+
+requestdistribution=zipfian
+
+fieldcount=10
+fieldlength=100
+
+threadcount=64
+
+measurementtype=hdrhistogram
+hdrhistogram.percentiles=50,95,99,99.9,99.99
+
+status.interval=5

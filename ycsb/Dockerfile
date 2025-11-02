@@ -1,0 +1,29 @@
+FROM openjdk:11-jdk-slim
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    python3 \
+    python3-pip \
+    git \
+    vim \
+    netcat-openbsd \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python packages
+RUN pip3 install pandas matplotlib numpy
+
+# Download YCSB
+WORKDIR /opt
+RUN wget https://github.com/brianfrankcooper/YCSB/releases/download/0.17.0/ycsb-0.17.0.tar.gz && \
+    tar xfvz ycsb-0.17.0.tar.gz && \
+    rm ycsb-0.17.0.tar.gz && \
+    mv ycsb-0.17.0 ycsb
+
+WORKDIR /opt/ycsb
+RUN mkdir -p /results
+
+ENV PATH="/opt/ycsb/bin:${PATH}"
+
+CMD ["/bin/bash"]
